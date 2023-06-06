@@ -14,5 +14,56 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('tugas3');
+    return view('welcome');
 });
+
+Route::get('/', function () {
+    return view('tugas');
+});
+
+Route::get('/about', function () {
+    return view('about');
+});
+
+Route::get('/form', function () {
+    return view('form');
+});
+
+Route::get('/HELLO/{nama}/{alamat}', function ($nama, $alamat) {
+    return "<h2> Hello $nama dari $alamat </h2>";
+});
+
+Route::get('/produk/{id}', function ($id) {
+    return view('produk/index', ['id'=>$id]);
+});
+
+
+use App\Http\Controllers\UserController;
+Route::get('/user', 
+    [UserController::class, 'index']);
+
+    Route::get('/user/daftar',
+    [UserController::class, 'daftar']
+);
+
+
+
+Route::post('/user/checkup',
+[UserController::class, 'checkup'])->name('user/checkup');
+
+use App\Http\Controllers\TokoController;
+
+Route::prefix('toko')->group(function(){
+    Route::get('/',
+    [TokoController::class, 'index']);
+    
+Route::get('/detail',
+    [TokoController::class, 'detail']);
+    
+Route::get('/admin',
+    [TokoController::class, 'admin']);
+    
+Route::get('/customer',
+    [TokoController::class,'customer']);
+});
+
